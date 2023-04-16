@@ -11,15 +11,6 @@ export const metadata = {
 export default function Home() {
   return (
     <div>
-      <Head>
-        <title>Login page</title>
-        <meta
-          name="description"
-          content="Your personal finance statement app"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className="container flex-col flex-center ">
         <Login />
       </main>
