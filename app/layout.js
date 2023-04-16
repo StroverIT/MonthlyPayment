@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="h-screen min-h-screen flex justify-between flex-col">
+      <body className="h-screen min-h-screen flex justify-between flex-col bg-[#f7fcfd]">
         <Navigation />
         {children}
         <Footer />
@@ -22,3 +22,4 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+[];

@@ -1,27 +1,13 @@
-import React from 'react'
+import React from "react";
+import Subscription from "./subscription";
 
 export default function Page() {
   return (
-    <div className='container'>Здравейте, Томи Костадинов! </div>
-
-    <Subscription/>
-  )
-}
-
-
-const Subscription = ()=>{
-
-    return (
-
-        <div>
-                <div className='flex justify-between'>
-                    <div className='invisible'></div>
-                    <div>130 лв / месец</div>
-                </div>
-
-            <div>Месечен абонамент за цалостна поддръжка на сайта.</div>
-            <button>Виж повече</button>
-
-        </div>  
-    )
+    <>
+      <div className="text-3xl font-semibold">Здравейте, Томи Костадинов! </div>
+      <div className="grid grid-cols-3 mt-10">
+        <Subscription />
+      </div>
+    </>
+  );
 }
