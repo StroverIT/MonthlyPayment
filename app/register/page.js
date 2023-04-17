@@ -1,7 +1,16 @@
-import Head from "next/head";
-import Register from "../../components/Pages/Home/Register";
 
-export default function Home() {
+import Register from "../../components/Pages/Home/Register";
+import getSession from "../getSessionon";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+export default async function Home(props) {
+  const session = await getSession(headers().get('cookie') ?? '');
+
+  if(session){
+    redirect("/account")
+  }
+  
   return (
     <>
       <main className="container flex-col flex-center">
@@ -10,6 +19,8 @@ export default function Home() {
     </>
   );
 }
+
+
 // export async function getServerSideProps(context) {
 //   const { query } = context;
 //   const session = await getSession({ req: context.req });
