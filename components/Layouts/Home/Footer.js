@@ -1,10 +1,17 @@
+"use client"
+import { ToastContainer } from "react-toastify";
+
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="absolute bottom-0 left-0 w-full ">
-      <SvgComponent />
-    </footer>
+    <>
+      <footer className="absolute bottom-0 left-0 w-full ">
+        <SvgComponent />
+      </footer>
+      <ToastContainer />
+      
+    </>
   );
 };
 
