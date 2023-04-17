@@ -11,7 +11,7 @@ const Navigation = () => {
           <div className="relative w-10 h-10">
             <Image src="/flatIcons/employee_logo.png" fill alt="logo" />
           </div>
-          <div className="text-2xl font-semibold">MonthlyPayments</div>
+          <div className="text-2xl font-semibold">StroverSubscriptions</div>
         </section>
         {isLogged && (
           <section className="">
