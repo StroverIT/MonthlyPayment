@@ -1,9 +1,18 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Navigation = () => {
-  const isLogged = true;
+import LogoutBtn from "./LogoutBtn"
+
+// Next-auth
+import { headers } from 'next/headers'
+import getSession from "../../../app/getSessionon";
+
+const Navigation = async () => {
+  const session = await getSession(headers().get('cookie') ?? '');
+
+  
   return (
     <nav className="fixed top-0 w-full">
       <div className="container flex justify-between pt-10 pb-16">
@@ -13,18 +22,16 @@ const Navigation = () => {
           </div>
           <div className="text-2xl font-semibold">StroverSubscriptions</div>
         </section>
-        {isLogged && (
+        {session && (
           <section className="">
-            <ul className="flex mt-2 gap-x-5">
+            <ul className="flex items-center mt-2 gap-x-5">
               <li>
                 <Link href="/account">Абонаменти</Link>
               </li>
               <li>
                 <Link href="/account/offers">Оферти</Link>
               </li>
-              <li>
-                <Link href="/account/offers">Изход</Link>
-              </li>
+              <li><LogoutBtn/></li>
             </ul>
           </section>
         )}
