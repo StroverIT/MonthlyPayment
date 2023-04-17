@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 
 // Next auth
-import { signIn, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 // Components
 import Input from "../../Forms/Inputs/Default";
