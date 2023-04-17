@@ -13,11 +13,11 @@ export default function RootLayout({ children }) {
   // const route = children.props.childProp.segment;
 
   return (
-        <>
+        <div>
           <Navigation />
           <div className="mt-32 mb-48">{children}</div>
           <Footer />
-        </>
+        </div>
   );
 }
 [];
