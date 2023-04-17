@@ -4,12 +4,12 @@ import React from "react";
 
 import { useState } from "react";
 
-// import { toastError } from "../libs/Notifications";
+import {toastError, toastSuccess} from "../../../libs/Notifications"
 import { signIn, getSession } from "next-auth/react";
 
 import Input from "../../Forms/Inputs/Default";
 import Button from "../../Forms/Buttons/Default";
-import { usePathname } from "next/navigation";
+import { redirect,  useRouter } from "next/navigation";
 import Link from "next/link";
 
 const namesAndIds = [
@@ -17,8 +17,8 @@ const namesAndIds = [
   { name: "Boss", _id: 1 },
 ];
 
-const Register = () => {
-  const router = usePathname();
+const Register =  () => {
+  const router = useRouter();
 
   const [inputs, setInputs] = useState({
     // name: "",
@@ -50,25 +50,26 @@ const Register = () => {
     });
 
     const data = await res.json();
+    
+    setLoading(false);
 
     if (data.message) {
-      console.log("vliza");
+      
       await signIn("credentials", {
         redirect: false,
         email: inputs.email,
         password: inputs.password,
       });
+      router.refresh()
 
-      router.replace(router.asPath);
-      return;
+      toastSuccess(data.message)
+
     }
-    console.log(data);
     //Await for data for any desirable next steps
-    if (data.error) {
-      toastError(data.error);
-      setLoading(false);
-      return;
+    if (data[0]) {
+      toastError(data[0]);
     }
+  
   };
 
   const inputHandler = (e) => {
@@ -89,7 +90,7 @@ const Register = () => {
       input={loginInputs.name}
       setInput={inputsHandler}
     /> */}
-      <div className="flex flex-col gap-y-5 mt-10">
+      <div className="flex flex-col mt-10 gap-y-5">
         {/* <Input
           name="role"
           type="dropdown"
@@ -103,24 +104,24 @@ const Register = () => {
           <Input
             name="fullName"
             placeholder="Ivan Petrov"
-            label="Full Name"
+            label="Две имена"
             onChange={inputHandler}
             value={inputs.fullName}
           />
           <Input
             name="phoneNumber"
-            placeholder="0870129429"
-            label="Phone Number"
+            placeholder="Телефон"
+            label="Телефон"
             onChange={inputHandler}
             value={inputs.phoneNumber}
           />
         </div>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="">
           <Input
             name="email"
             type="email"
             placeholder="example@gmail.com"
-            label="Email Address"
+            label="И-мейл"
             onChange={inputHandler}
             value={inputs.email}
           />
@@ -128,7 +129,8 @@ const Register = () => {
             name="password"
             type="password"
             placeholder="123456"
-            label="Password"
+            label="Парола"
+            className="mt-4"
             onChange={inputHandler}
             value={inputs.password}
           />
@@ -153,7 +155,7 @@ const Register = () => {
       <div className="mt-10">
         Вече имате акаунт?
         <Link href="/">
-          <span className="underline cursor-pointer pl-1">Вход</span>
+          <span className="pl-1 underline cursor-pointer">Вход</span>
         </Link>
       </div>
     </div>
@@ -161,3 +163,5 @@ const Register = () => {
 };
 
 export default Register;
+
+
