@@ -40,6 +40,8 @@ export default async function RootLayout({
 
       <AuthContext session={session}>
 
+    {/* @ts-expect-error Server Component */}
+    
         <Navigation />
         <div className="mb-48 mt-36">
         {children}
