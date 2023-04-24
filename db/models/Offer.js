@@ -23,7 +23,7 @@ const OfferSchema = new Schema({
   },
   typeOfPayment: {
     type: String,
-    enum: ["monthly", "weekly", "signle"],
+    enum: ["month", "week", "single"],
     required: true,
   },
 
