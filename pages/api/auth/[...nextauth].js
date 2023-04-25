@@ -89,9 +89,11 @@ export default NextAuth({
                 "Error: И-мейла е регистриран. Свържете се с нас за повече информация",
             };
           }
+          console.log(result);
           return {
             id: profile.id,
             name: profile.name,
+            role: result.role,
             email: profile.email,
             image: profile.picture,
           };
@@ -101,5 +103,23 @@ export default NextAuth({
       },
     }),
   ],
- 
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl
+    },
+    async session({ session, token, user }) {
+      let newUser
+      if(token){
+      newUser = await User.findOne({email: token?.email})
+
+      }
+      return {...session, role: newUser?.role}
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      return {...token}
+    }
+  }
 });
