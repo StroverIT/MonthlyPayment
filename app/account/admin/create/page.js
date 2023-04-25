@@ -7,7 +7,7 @@ const Page = async () => {
   const session = await getSession(headers().get('cookie') ?? '');
 
   if(!session){
-
+    redirect("/")
   }
   console.log(session);
 
