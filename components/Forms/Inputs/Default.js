@@ -36,7 +36,7 @@ const Input = ({
         <label
           htmlFor={name}
           className={`block mb-2 text-sm font-medium text-gray-900 dark:text-white ${
-            type == "dropdown" ? "invisible" : ""
+            type == "dropdown" ? "1" : ""
           }`}
         >
           {label}
@@ -67,7 +67,7 @@ const Input = ({
         ></textarea>
       )}
       {type == "dropdown" && (
-        <div className="relative w-full  flex-center">
+        <div className="relative flex-col w-full flex-center">
           <button
             id="dropdownDefaultButton"
             data-dropdown-toggle="dropdown"
