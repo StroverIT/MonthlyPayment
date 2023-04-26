@@ -22,6 +22,8 @@ const Button = ({
 }) => {
   const themeColors = {
     black: ["bg-gray-900", "rgb(17 24 39)"],
+    green: ["bg-green-500", "rgb(34 197 94)"],
+
   };
 
   const boxShadowStyle = `0 0 0 3px white, 0 0 0 6px ${
