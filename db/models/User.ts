@@ -17,7 +17,9 @@ interface IUser {
   addresses: [IAddress];
   role: string;
   isVerified: boolean;
-  // workers: Array<Types.ObjectId>;
+  offers: Array<Types.ObjectId>;
+  subscriptions: Array<Types.ObjectId>;
+
 }
 
 const addressSchema = new Schema<IAddress>({
@@ -62,6 +64,18 @@ const userScheme = new Schema<IUser>({
     type: Boolean,
     default: false,
   },
+  offers:[{
+    type: Schema.Types.ObjectId,
+    ref: "Offer",
+    required: true,
+
+  }],
+  subscriptions:[{
+    type: Schema.Types.ObjectId,
+    ref: "Subscription",
+    required: true,
+
+  }]
 });
 
 const User = (models.User as Model<IUser>) || model<IUser>("User", userScheme);
