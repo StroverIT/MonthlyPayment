@@ -101,7 +101,7 @@ const CreateForm =  ({users}) => {
       setInput={inputsHandler}
     /> */}
       <div className="flex flex-col mt-10 gap-y-5">
-        <div class="grid items-center gap-5 md:grid-cols-2">
+        <div className="grid items-center gap-5 md:grid-cols-2">
           <Input
             name="subTime"
             type="dropdown"
