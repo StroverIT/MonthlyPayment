@@ -29,7 +29,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/middleware.js", "pages/api/offer/user/getAll.js"  ],
+, "pages/middleware.js", "pages/api/offer/user/getAll.js", "app/layout.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 
-import { Session } from 'next-auth'
 import { headers } from 'next/headers'
 import AuthContext from "./AuthContext";
 
@@ -9,7 +8,6 @@ import Footer from "../components/Layouts/Home/Footer";
 import Navigation from "../components/Layouts/Home/Navigation";
 import getSession from "./getSessionon";
 
-import AuthProtector from "./AuthProtector"
 import Link from "next/link";
 import Button from "../components/Forms/Buttons/Default";
 
@@ -24,8 +22,6 @@ export const metadata = {
 // Layout 
 export default async function RootLayout({
   children,
-}: {
-  children: React.ReactNode,
 }) {
 
   const session = await getSession(headers().get('cookie') ?? '');
