@@ -5,6 +5,7 @@ async function getSession(cookie: string): Promise<Session> {
     const response = await fetch(`${process.env.LOCAL_AUTH_URL}/api/auth/session`, {
       headers: {
         cookie,
+        cache: "no-store"
       },
     });
   

@@ -5,16 +5,11 @@ import React from "react";
 
 import LogoutBtn from "./LogoutBtn"
 
-// Next-auth
-import { headers } from 'next/headers'
-import getSession from "../../../app/getSessionon";
-
-const Navigation = async () => {
-  const session = await getSession(headers().get('cookie') ?? '');
+const Navigation =  ({session}) => {
 
   
   return (
-    <nav className="fixed top-0 w-full">
+    <nav className="fixed top-0 w-full z-[999]">
       <div className="container flex justify-between pt-10 pb-16">
         <section className="flex items-center gap-x-2">
           <div className="relative w-10 h-10">
@@ -25,12 +20,12 @@ const Navigation = async () => {
         {session && (
           <section className="">
             <ul className="flex items-center mt-2 gap-x-5">
-              <li>
+              {/* <li>
                 <Link href="/account">Абонаменти</Link>
               </li>
               <li>
                 <Link href="/account/offers">Оферти</Link>
-              </li>
+              </li> */}
               <li><LogoutBtn/></li>
             </ul>
           </section>

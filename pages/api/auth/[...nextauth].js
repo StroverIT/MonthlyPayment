@@ -22,9 +22,12 @@ export default NextAuth({
         await connectMongo();
         //Get all the users
         //Find user with the email
+      
+
         const result = await User.findOne({
           email: credentials.email,
-        });
+        }).select("-offers -subscriptions -role -isVerified -createdAt -addresses");
+        
         //Not found - send error res
         if (!result) {
           mongoose.connection.close();
@@ -49,11 +52,11 @@ export default NextAuth({
         //   throw new Error("Не ви е потвърден акаунта");
         // }
         //Else send success response
-        mongoose.connection.close();
-
+ 
+        console.log(result);
         return {
           email: result.email,
-          name: result.name,
+          name: result.fullName,
         };
       },
     }),
@@ -89,7 +92,6 @@ export default NextAuth({
                 "Error: И-мейла е регистриран. Свържете се с нас за повече информация",
             };
           }
-          console.log(result);
           return {
             id: profile.id,
             name: profile.name,
@@ -105,21 +107,23 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      return true
+      return true;
     },
     async redirect({ url, baseUrl }) {
-      return baseUrl
+      return baseUrl;
     },
     async session({ session, token, user }) {
-      let newUser
-      if(token){
-      newUser = await User.findOne({email: token?.email})
+      let newUser;
+      if (token) {
+        await connectMongo();
 
+        newUser = await User.findOne({ email: token?.email });
       }
-      return {...session, role: newUser?.role}
+
+      return { ...session, role: newUser?.role, fullName: newUser?.fullName, _id: newUser?._id?.toString() };
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      return {...token}
-    }
-  }
+      return { ...token };
+    },
+  },
 });

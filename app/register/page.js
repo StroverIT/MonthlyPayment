@@ -2,19 +2,15 @@
 import Register from "../../components/Pages/Home/Register";
 import getSession from "../getSessionon";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export default async function Home(props) {
   const session = await getSession(headers().get('cookie') ?? '');
 
-  if(session){
-    redirect("/account")
-  }
   
   return (
     <>
       <main className="container flex-col flex-center">
-        <Register />
+        <Register session={session} />
       </main>
     </>
   );

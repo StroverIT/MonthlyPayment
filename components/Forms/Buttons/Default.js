@@ -19,6 +19,7 @@ const Button = ({
   iconPos,
   classNameText,
   isLoading = false,
+  pending
 }) => {
   const themeColors = {
     black: ["bg-gray-900", "rgb(17 24 39)"],
@@ -45,6 +46,7 @@ const Button = ({
               color,
             }
       }
+      disabled={pending}
       type={type}
       onClick={onClick}
       className={`${className} ${

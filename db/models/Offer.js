@@ -1,7 +1,16 @@
 import { Schema, model, models } from "mongoose";
 
+const isActivatedSchema = {
+  admin: { type: Boolean, default: false },
+  user: { type: Boolean, default: false },
+};
+
+const activatedDateSchema = {
+  admin: { type: Boolean, default: false },
+  user: { type: Boolean, default: false },
+};
 const OfferSchema = new Schema({
-  holderId: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -12,21 +21,31 @@ const OfferSchema = new Schema({
   },
   benefits: {
     type: String,
-    
   },
-  description:{
+  notes: {
     type: String,
   },
-  pricing: {
+  price: {
     type: Number,
     required: true,
   },
   typeOfPayment: {
     type: String,
-    enum: ["monthly", "weekly", "signle"],
+    enum: ["Единично", "Месечно"],
     required: true,
   },
 
+  isActivated: isActivatedSchema,
+  activatedDate: activatedDateSchema,
+  products: {
+    adding: Number,
+    editing: Number,
+  },
+  functionality: {
+    low: Number,
+    medium: Number,
+    high: Number,
+  },
 });
 
 const Offer = models.Offer || model("Offer", OfferSchema);

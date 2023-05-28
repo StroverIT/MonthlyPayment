@@ -66,16 +66,11 @@ const userScheme = new Schema<IUser>({
   },
   offers:[{
     type: Schema.Types.ObjectId,
-    ref: "Offer",
+    ref: "Offers",
     required: true,
 
   }],
-  subscriptions:[{
-    type: Schema.Types.ObjectId,
-    ref: "Subscription",
-    required: true,
 
-  }]
 });
 
 const User = (models.User as Model<IUser>) || model<IUser>("User", userScheme);

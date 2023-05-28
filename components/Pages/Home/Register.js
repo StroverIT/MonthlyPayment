@@ -17,9 +17,11 @@ const namesAndIds = [
   { name: "Boss", _id: 1 },
 ];
 
-const Register =  () => {
+const Register =  ({session}) => {
   const router = useRouter();
 
+  
+  
   const [inputs, setInputs] = useState({
     // name: "",
     email: "",
@@ -35,6 +37,9 @@ const Register =  () => {
   const [isFound, setIsFound] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState([]);
+
+  if(session)  return router.push("/")
+
 
   const submitHandler = async (e) => {
     e.preventDefault();

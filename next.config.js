@@ -9,7 +9,11 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: { appDir: true },
+  experimental: { serverActions: true, },
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
+  },
   i18n: {
     locales: ["bg"],
     defaultLocale: "bg",

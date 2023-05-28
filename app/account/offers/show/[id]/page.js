@@ -1,50 +1,84 @@
 import React from "react";
-import Button from "../../../../../components/Forms/Buttons/Default";
 
-const Page = () => {
+import Sidebar from "./Sidebar";
+
+import { getOffer, activeOffer } from "../../../../../API/offers";
+
+import OfferInfo from "./OfferInfo";
+import HistoryInfo from "./HistoryInfo";
+
+const Page = async ({ params }) => {
+  const { id } = params;
+
+  const data = await getOffer(id);
+  const historyData = {
+    link: "https://localhost:3000/products/hartiq/61eb119d7815ce846f1745b1?itemId=61eb119d7815ce846f1745b2",
+    changedData: {
+      name: null,
+      price: null,
+      description: null,
+      katnomer: null
+    },
+    type: "edit, create",
+    isImageChanged: false,
+  };
+
+  if (!data) return <div className="flex-center">Зарежда се...</div>;
+
+  const condForActivate = !data.isActivated.admin && !data.isActivated.user;
+  const condForAdminReq = !data.isActivated.admin && data.isActivated.user;
+  const condActivated = data.isActivated.admin && data.isActivated.user;
+
   return (
     <>
-      <div className="grid grid-cols-[70%30%] gap-x-5 container mt-10">
+      <div className="grid grid-cols-[70%30%]  gap-x-5 container mt-10  ">
         <div>
-          <h1 className="text-xl font-semibold">Оферта:</h1>
-          <h2 className="text-lg">Месечен абонамент за цялостна поддръжка на сайта</h2>
-
-          <h1 className="text-xl font-semibold">Какво включва:</h1>
-          <ul className="ml-5 list-disc">
-            <li>Създаване на 10 продукта</li>
-            <li>Редактиране на 40 продукта</li>
-            <li>Корекции по функционалността на сайт</li>
-            <li>Обновяване на остарели и уязвими модули</li>
-            <li>Създаване на една функционалност</li>
-      
-
-          </ul>
-          <div className="max-w-2xl mt-4 text-sm"><span className="text-red-500">*</span> Всяка една услуга която включва бройки, всеки месец се добяват, а не започват наново
-          <br/>
-            
-            <span className="text-red-500">*</span> Примерно: Първият месец в абонамента сте имали &quot;Създаване на два продукта&quot;, обаче не е създанен нито един. Вторият месец ще имате четири продукта продукта
-            , демек се надчисляват, над тези които имате. 
-            <br/>
-            <span className="text-red-500">*</span> Същото се отнася и за функционалностите
-          </div>
-   
-
+          {(condForAdminReq || condActivated) && (
+            <div>
+              <h1 className="text-xl font-semibold">
+                Оставащи продукти от абонамента:
+              </h1>
+              <ul className="">
+                <li>Добавяне: {data.products.adding}</li>
+                <li>Редактиране: {data.products.editing}</li>
+              </ul>
+              {data.functionality && (
+                <>
+                  <h1 className="text-xl font-semibold">
+                    Оставащи функционалности:
+                  </h1>
+                  <ul className="">
+                    <li>
+                      Лесни:{" "}
+                      {data.functionality.low ? data.functionality.low : 0}
+                    </li>
+                    <li>
+                      Средни:{" "}
+                      {data.functionality.medium
+                        ? data.functionality.medium
+                        : 0}
+                    </li>
+                    <li>
+                      Сложни:{" "}
+                      {data.functionality.high ? data.functionality.high : 0}
+                    </li>
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
         </div>
-        <section className="self-start p-8 bg-white shadow-2xl rounded-xl">
-          <section className="flex justify-between">
-            <div>Цена</div>
-            <div className="font-semibold">XXX лв.</div>
-          </section>
-          <section className="flex justify-between">
-            <div>Плащане:</div>
-            <div className="font-semibold">Месечно.</div>
-          </section>
-          {/* Notes */}
-          <section className="my-4 text-sm text-center">
-            * Абонамента започва при първо заплащане
-          </section>
-          <Button text="Поръчай" className="w-full "/>
-        </section>
+        <Sidebar
+          data={data}
+          activeOffer={activeOffer.bind({}, { offerId: id })}
+          condForActivate={condForActivate}
+          condForAdminReq={condForAdminReq}
+          condActivated={condActivated}
+        />
+      </div>
+      <div className="container grid grid-cols-[60%40%]">
+        {condActivated && <HistoryInfo data={historyData} />}
+        {(condForAdminReq || condActivated) && <OfferInfo data={data} />}
       </div>
     </>
   );
