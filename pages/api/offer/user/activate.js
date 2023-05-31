@@ -23,15 +23,15 @@ export default async function handler(req, res) {
     await Offer.updateOne({_id: new ObjectId(offerId)}, {$set: {"isActivated.user": true}})
 
     const message = `
-    <h1>Нова оферта от ${user.email}</h1>
-    <a href="${process.env.HOST_URL}">Натиснете тук</a>
+    <h1>Нова активирана оферта от ${user.email}</h1>
+    <a href="${process.env.HOST_URL}/account/show/${offerId}">Виж офертата</a>
     `;
-    // await sendEmail(
-    //     process.env.EMAIL_SEND,
-    //     process.env.EMAIL_SEND,
-    //     "Нова активирана оферта!",
-    //     message
-    //   );
+    await sendEmail(
+        process.env.EMAIL_SEND,
+        process.env.EMAIL_SEND,
+        "Нова активирана оферта!",
+        message
+      );
 
     res.json({ message: "Всичко е наред" });
   } catch (e) {
