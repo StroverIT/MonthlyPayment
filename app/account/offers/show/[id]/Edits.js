@@ -11,7 +11,7 @@ const Edits = ({data}) => {
                 {log.newArticle.section } {log.newArticle.subsection && `> ${log.newArticle.subsection}`} {log.newArticle.katNomer && `> ${log.newArticle.katNomer}`} 
 
                 </div>  
-                <div className='text-sm'>27/5/2023 </div>
+                <div className='text-sm'>{log.createdAt} </div>
 
             <div className='mt-2'>
                 Стари данни - <strong>{log.oldArticle.text}: {log.oldArticle.oldInput}</strong>
