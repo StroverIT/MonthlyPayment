@@ -11,7 +11,13 @@ const HistoryScheme = new Schema({
     required: true,
   },
   oldProductInfo:{ type: Object},
-  newProductInfo: {type: Object}
+  newProductInfo: {type: Object},
+  createdAt: {
+    type: String,
+    default: () => {
+      return new Date(Date.now()).toLocaleDateString();
+    },
+  },
 });
 
 const History = models.History || model("History", HistoryScheme);
