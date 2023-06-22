@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const LogsEditScheme = new Schema({
   offerId: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Offer",
     required: true,
   },
   oldArticle: {
@@ -11,7 +11,14 @@ const LogsEditScheme = new Schema({
   },
   newArticle: {
     type: Object
-  }
+  },
+  createdAt: {
+    type: String,
+    default: () => {
+      return new Date(Date.now()).toLocaleDateString();
+    },
+  },
+  
 });
 
 const LogsEdit = models.LogsEdit || model("LogsEdit", LogsEditScheme);

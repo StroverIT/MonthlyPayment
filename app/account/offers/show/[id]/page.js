@@ -3,6 +3,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 
 import { getOffer, activeOffer } from "../../../../../API/offers";
+import {getHistory} from "../../../../../API/history"
 
 import OfferInfo from "./OfferInfo";
 import HistoryInfo from "./HistoryInfo";
@@ -11,18 +12,8 @@ const Page = async ({ params }) => {
   const { id } = params;
 
   const data = await getOffer(id);
-  const historyData = {
-    link: "https://localhost:3000/products/hartiq/61eb119d7815ce846f1745b1?itemId=61eb119d7815ce846f1745b2",
-    changedData: {
-      name: null,
-      price: null,
-      description: null,
-      katnomer: null
-    },
-    type: "edit, create",
-    isImageChanged: false,
-  };
-
+  const {edits} = await getHistory(id)
+    console.log(edits);
   if (!data) return <div className="flex-center">Зарежда се...</div>;
 
   const condForActivate = !data.isActivated.admin && !data.isActivated.user;
@@ -77,7 +68,7 @@ const Page = async ({ params }) => {
         />
       </div>
       <div className="container grid grid-cols-[60%40%]">
-        {condActivated && <HistoryInfo data={historyData} />}
+        {condActivated && <HistoryInfo edits={edits} />}
         {(condForAdminReq || condActivated) && <OfferInfo data={data} />}
       </div>
     </>

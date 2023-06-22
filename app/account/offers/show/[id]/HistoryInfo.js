@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Button from "../../../../../components/Forms/Buttons/Default";
+import Edits from "./Edits"
 
-const HistoryInfo = ({ data, condForAdminReq, condActivated }) => {
+const HistoryInfo = ({ edits, condForAdminReq, condActivated }) => {
   const [isVisible, setVisible] = useState(
     condForAdminReq || condActivated ? false : true
   );
@@ -19,12 +20,11 @@ const HistoryInfo = ({ data, condForAdminReq, condActivated }) => {
         />
       
       {isVisible && (
-        <div>
-         Testvam brat
-        </div>
+        <Edits data={edits}/>
       )}
     </div>
   );
 };
 
 export default HistoryInfo;
+
