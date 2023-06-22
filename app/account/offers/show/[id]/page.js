@@ -13,7 +13,6 @@ const Page = async ({ params }) => {
 
   const data = await getOffer(id);
   const {edits} = await getHistory(id)
-    console.log(edits);
   if (!data) return <div className="flex-center">Зарежда се...</div>;
 
   const condForActivate = !data.isActivated.admin && !data.isActivated.user;
